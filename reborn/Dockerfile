@@ -2,8 +2,7 @@ FROM alpine
 
 LABEL maintainer="elrepo <322252@gmail.com>"
 
-ENV EXCLUDE_REMARKS0=(剩余流量|到期时间|过期时间|官网地址|产品名称) \
-    SPEEDTEST_MODE=all \
+ENV SPEEDTEST_MODE=all \
     TEST_SITE_PING=true \
     TEST_UPLOAD=false \
     PREFERRED_SS_CLIENT=ss-libev \
@@ -18,8 +17,6 @@ ENV EXCLUDE_REMARKS0=(剩余流量|到期时间|过期时间|官网地址|产品
     SINGLE_TEST_FORCE_EXPORT=true \
     EXPORT_AS_NEW_STYLE=true \
     EXPORT_COLOR_STYLE=rainbow \
-    CUSTOM_COLOR_GROUPS=65535,65535,65535|32768,65535,0|65535,65535,0|65535,32768,49152|65535,0,0 \
-    CUSTOM_COLOR_BOUNDS=0|65536|524288|4194304|16777216 \
     SUB_LINK=https://baidu.com
 
 COPY stairspeedtest_reborn_linux64_v0.6.1-beta /root/stairspeedtest
@@ -30,3 +27,19 @@ RUN apk add --no-cache tzdata &&\
 
 WORKDIR /root/stairspeedtest
 
+CMD sed -i "s|_SPEEDTEST_MODE_|${SPEEDTEST_MODE}|" pref.ini && \
+    sed -i "s|_TEST_SITE_PING_|${TEST_SITE_PING}|" pref.ini && \
+    sed -i "s|_TEST_UPLOAD_|${TEST_UPLOAD}|" pref.ini && \
+    sed -i "s|_PREFERRED_SS_CLIENT_|${PREFERRED_SS_CLIENT}|" pref.ini && \
+    sed -i "s|_PREFERRED_SSR_CLIENT_|${PREFERRED_SSR_CLIENT}|" pref.ini && \
+    sed -i "s|_PREFERRED_PING_METHOD_|${PREFERRED_PING_METHOD}|" pref.ini && \
+    sed -i "s|_THREAD_COUNT_|${THREAD_COUNT}|" pref.ini && \
+    sed -i "s|_LISTEN_ADDRESS_|${LISTEN_ADDRESS}|" pref.ini && \
+    sed -i "s|_LISTEN_PORT_|${LISTEN_PORT}|" pref.ini && \
+    sed -i "s|_EXPORT_WITH_MAXSPEED_|${EXPORT_WITH_MAXSPEED}|" pref.ini && \
+    sed -i "s|_EXPORT_SORT_METHODs_|${EXPORT_SORT_METHODs}|" pref.ini && \
+    sed -i "s|_MULTILINK_EXPORT_AS_ONE_IMAGE_|${MULTILINK_EXPORT_AS_ONE_IMAGE}|" pref.ini && \
+    sed -i "s|_SINGLE_TEST_FORCE_EXPORT_|${SINGLE_TEST_FORCE_EXPORT}|" pref.ini && \
+    sed -i "s|_EXPORT_AS_NEW_STYLE_|${EXPORT_AS_NEW_STYLE}|" pref.ini && \
+    sed -i "s|_EXPORT_COLOR_STYLE_|${EXPORT_COLOR_STYLE}|" pref.ini && \
+    ./stairspeedtest /u ${SUB_LINK}
