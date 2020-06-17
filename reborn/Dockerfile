@@ -21,7 +21,7 @@ ENV SPEEDTEST_MODE=all \
 
 COPY stairspeedtest_reborn_linux64_v0.6.1-beta /root/stairspeedtest
 
-RUN apk add --no-cache tzdata &&\
+RUN apk add --no-cache tzdata jq imagemagick curl &&\
     cp -r -f /usr/share/zoneinfo/Asia/Shanghai /etc/localtime &&\
     apk del -f tzdata
 
@@ -42,4 +42,5 @@ CMD sed -i "s|_SPEEDTEST_MODE_|${SPEEDTEST_MODE}|" pref.ini && \
     sed -i "s|_SINGLE_TEST_FORCE_EXPORT_|${SINGLE_TEST_FORCE_EXPORT}|" pref.ini && \
     sed -i "s|_EXPORT_AS_NEW_STYLE_|${EXPORT_AS_NEW_STYLE}|" pref.ini && \
     sed -i "s|_EXPORT_COLOR_STYLE_|${EXPORT_COLOR_STYLE}|" pref.ini && \
-    ./stairspeedtest /u ${SUB_LINK}
+    ./stairspeedtest /u ${SUB_LINK} &&\
+    sh upload.sh `ls results/*.png`
