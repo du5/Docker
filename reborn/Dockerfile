@@ -10,6 +10,7 @@ ENV SPEEDTEST_MODE=all \
     PREFERRED_PING_METHOD=tcping \
     THREAD_COUNT=4 \
     LISTEN_ADDRESS=127.0.0.1 \
+    TEST_NAT_TYPE=true \
     LISTEN_PORT=10870 \
     EXPORT_WITH_MAXSPEED=true \
     EXPORT_SORT_METHOD=none \
@@ -19,7 +20,7 @@ ENV SPEEDTEST_MODE=all \
     EXPORT_COLOR_STYLE=rainbow \
     SUB_LINK=https://baidu.com
 
-COPY stairspeedtest_reborn_linux64_v0.6.1-beta /root/stairspeedtest
+COPY stairspeedtest_reborn_linux64_fc75385 /root/stairspeedtest
 
 RUN apk add --no-cache tzdata jq imagemagick curl &&\
     cp -r -f /usr/share/zoneinfo/Asia/Shanghai /etc/localtime &&\
@@ -35,6 +36,7 @@ CMD sed -i "s|_SPEEDTEST_MODE_|${SPEEDTEST_MODE}|" pref.ini && \
     sed -i "s|_PREFERRED_PING_METHOD_|${PREFERRED_PING_METHOD}|" pref.ini && \
     sed -i "s|_THREAD_COUNT_|${THREAD_COUNT}|" pref.ini && \
     sed -i "s|_LISTEN_ADDRESS_|${LISTEN_ADDRESS}|" pref.ini && \
+    sed -i "s|_TEST_NAT_TYPE_|${TEST_NAT_TYPE}|" pref.ini && \
     sed -i "s|_LISTEN_PORT_|${LISTEN_PORT}|" pref.ini && \
     sed -i "s|_EXPORT_WITH_MAXSPEED_|${EXPORT_WITH_MAXSPEED}|" pref.ini && \
     sed -i "s|_EXPORT_SORT_METHODs_|${EXPORT_SORT_METHODs}|" pref.ini && \
