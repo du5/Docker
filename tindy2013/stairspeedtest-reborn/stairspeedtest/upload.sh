@@ -1,13 +1,10 @@
 #!bin/bash
-jsonRet=""
+ret=""
 for f in "$@"
 do
-    convert ${f} ${f}.jpg
-    f=${f}.jpg
-    ref=$(curl --progress-bar -F smfile=@$f https://sm.ms/api/v2/upload | jq '"[\(.data.filename)](\(.data.url))"')
-    ref=${ref//\"/}
-    jsonRet=${jsonRet}$ref"\n"
+    ref=`curl --progress-bar -F source=@$f "https://img.gtary.com/api/1/upload/?format=txt&type=reborn"`
+    ret=${ret}"["${f}"]: "${ref}"\n"
     rm -rf ${f}
 done
 
-echo -e $jsonRet
+echo -e $ret
