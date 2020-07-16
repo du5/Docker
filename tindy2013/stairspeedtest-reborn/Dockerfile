@@ -22,7 +22,7 @@ ENV SPEEDTEST_MODE=all \
 
 COPY stairspeedtest /root/stairspeedtest
 
-RUN apk add --no-cache tzdata curl &&\
+RUN apk add --no-cache tzdata curl libstdc++ boost-system boost-program_options &&\
     cp -r -f /usr/share/zoneinfo/Asia/Shanghai /etc/localtime &&\
     apk del -f tzdata &&\
     chmod -R +x /root/stairspeedtest/stairspeedtest /root/stairspeedtest/tools/clients
