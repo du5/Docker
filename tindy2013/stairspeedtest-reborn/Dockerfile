@@ -20,9 +20,13 @@ ENV SPEEDTEST_MODE=all \
     EXPORT_COLOR_STYLE=rainbow \
     SUB_LINK=https://baidu.com
 
-COPY stairspeedtest /root/stairspeedtest
+COPY 14ed0d67669a61ec5ef5bfbd800199d1410d7fd3 /root/stairspeedtest
 
-RUN apk add --no-cache tzdata curl libstdc++ boost-system boost-program_options &&\
+COPY pref.ini /root/stairspeedtest/
+
+COPY upload.sh /root/stairspeedtest/
+
+RUN apk add --no-cache tzdata curl jq imagemagick &&\
     cp -r -f /usr/share/zoneinfo/Asia/Shanghai /etc/localtime &&\
     apk del -f tzdata &&\
     chmod -R +x /root/stairspeedtest/stairspeedtest /root/stairspeedtest/tools/clients
