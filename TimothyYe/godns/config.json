@@ -1,0 +1,12 @@
+{
+    "provider": "DNSPod",
+    "login_token": "TOKEN_ID,TOKEN_VALUE",
+    "domains": [{
+        "domain_name": "DOMAIN_NAME",
+        "sub_domains": ["SUB_DOMAINS"]
+      }
+    ],
+    "ip_url": "IP_URL",
+    "ip_type": "IP_TYPE",
+    "interval": INTERVAL
+  }
