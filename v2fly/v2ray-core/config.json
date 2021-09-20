@@ -1,0 +1,32 @@
+{
+    "log": {
+        "loglevel": "error",
+        "access": "none"
+    },
+    "inbounds": [
+        {
+            "port": wsport,
+            "protocol": "vmess",
+            "settings": {
+                "clients": [
+                    {
+                        "id": "uuid",
+                        "alterId": aid
+                    }
+                ]
+            },
+            "streamSettings": {
+                "network": "ws",
+                "wsSettings": {
+                    "path": "wsSettings.path"
+                }
+            }
+        }
+    ],
+    "outbounds": [
+        {
+            "protocol": "freedom",
+            "settings": {}
+        }
+    ]
+}
